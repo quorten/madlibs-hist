@@ -33,19 +33,26 @@ void playFlyingBummy()
 {
 	string name1;
 	string noun1;
+	string preposition1;
+	string noun2;
 	string adjetive1;
 	string verb1;
 	string date1;
 	string verb2;
 	string number1;
 	string number2;
+	string noun3;
 	string verb3;
-	string noun2;
+	string noun4;
 
 	cout << "Type a name: ";
 	cin >> name1;
-	cout << "Type a plural noun: ";
+	cout << "Type a noun: ";
 	cin >> noun1;
+	cout << "Type a preposition: ";
+	cin >> preposition1;
+	cout << "Type a plural noun: ";
+	cin >> noun2;
 	cout << "Type an adjetive: ";
 	cin >> adjetive1;
 	cout << "Type an action verb ending with s: ";
@@ -58,19 +65,21 @@ void playFlyingBummy()
 	cin >> number1;
 	cout << "Type another number: ";
 	cin >> number2;
+	cout << "Type a plural noun: ";
+	cin >> noun3;
 	cout << "Type a past tense verb: ";
 	cin >> verb3;
 	cout << "Type a noun: ";
-	cin >> noun2;
+	cin >> noun4;
 
-	cout << "\nThe Flying Bummy\n\n";
+	cout << "\nThe Flying Bummy\n";
 	cout << "\n";
-	cout << "The Flying Bummy lived in someone's " << name1 << ". The Flying Bummy been\n";
-	cout << "through many " << noun1 << ". People think the Flying Bummy is too\n";
+	cout << "The Flying Bummy lived in " << name1 << "'s " << noun1 << ". The Flying Bummy been\n";
+	cout << preposition1 << " many " << noun2 << ". People think the Flying Bummy is too\n";
 	cout << adjetive1 << " and " << verb1 << " too much. The Flying Bummy may be\n";
 	cout << adjetive1 << ", but you'll never guess what he did on " << date1 << ". He " << verb2 << "\n";
-	cout << number1 << " times on " << number2 << " buildings! He also " << verb3 << " on " << name1 << "'s\n";
-	cout << noun2 << "! Did he " << verb3 << " on your " << noun2 << "?\n";
+	cout << number1 << " times on " << number2 << " " << noun3 << "! He also " << verb3 << " on " << name1 << "'s\n";
+	cout << noun4 << "! Did he " << verb3 << " on your " << noun4 << "?\n";
 }
 
 void playGdayMate()
