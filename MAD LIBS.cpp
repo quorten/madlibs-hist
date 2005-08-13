@@ -9,12 +9,13 @@ using namespace std;
 
 void playFlyingBummy();
 void playGdayMate();
+void playMonstersCame();
 
 int main()
 {
 	//Pick a story at random
 	srand(time(0));
-	int randPick = rand() % 2;
+	int randPick = rand() % 3;
 	switch (randPick)
 	{
 	case 0:
@@ -22,6 +23,9 @@ int main()
 		break;
 	case 1:
 		playGdayMate();
+		break;
+	case 2:
+		playMonstersCame();
 		break;
 	}
 	cout << "Press the enter key to exit";
@@ -127,4 +131,45 @@ void playGdayMate()
 	cout << "Yami was so bored of the fight that he took off his " << clothing1 << ".\n";
 	cout << "This made Fea scream and " << verb3 << ". The moral of the story is\n";
 	cout << "don't " << verb4 << " in the " << place1 << ".\n";
+}
+
+void playMonstersCame()
+{
+	string noun1;
+	string date2;
+	string name3;
+	string country4;
+	string noun5;
+	string adverb6;
+	string adjetive7;
+	string noun8;
+
+	cout << "Type a plural noun: ";
+	cin >> noun1;
+	cout << "Type a date: ";
+	cin >> date2;
+	cout << "Type a name: ";
+	cin >> name3;
+	cout << "Type a country, state, contenent: ";
+	cin >> country4;
+	cout << "Type a noun: ";
+	cin >> noun5;
+	cout << "Type an adverb: ";
+	cin >> adverb6;
+	cout << "Type an adjetive: ";
+	cin >> adjetive7;
+	cout << "Type another noun: ";
+	cin >> noun8;
+
+	cout << "\nThe Day the " << noun1 << " came\n";
+	cout << "\n";
+	cout << "Have you ever seen " << noun1 << " from outerspace. This will be the first\n";
+	cout << "time you discover such a wierd thing. At " << date2 << ", many " << noun1 << " came\n";
+	cout << "from the plannet " << name3 << ". They Invaded earth and took over\n";
+	cout << country4 << " before you knew it. A probe alien stoll " << noun5 << " and " << adverb6 << "\n";
+	cout << "trough a " << adjetive7 << " ally. " << noun5 << " was the super important data to destroy\n";
+	cout << "all the envading alliens! Now the alliens, developed a wepon to destroy the\n";
+	cout << "sun and tear apart the galexy, exept for them! But nothing to fear, Super \n";
+	cout << "" << noun8 << " could rescue " << noun5 << " so the alliens couldn't destroy the galexy and\n";
+	cout << "get rid of all the invading alliens. So Super " << noun8 << " did that.\n";
 }
