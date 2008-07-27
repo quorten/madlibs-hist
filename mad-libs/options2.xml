@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<organizer version="0.5.1" purpose="Ultimate Mad Libs user configurable options">
+    <group id="Classic">
+	<data ShowStoryNameFirst="no"/>
+	<data OrganizeWordTypes="no"/>
+	<data ScrambleWords="no"/>
+	<data DisplayAllWords="no"/>
+    </group>
+    <group id="UserInterface">
+	<data UIType="GTK+"/>
+    </group>
+</organizer>
