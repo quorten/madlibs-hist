@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE madlib [
+	<!--The root element-->
+	<!ELEMENT madlib (#PCDATA |
+						adjetive |
+						adverb |
+						article |
+						conjunction |
+						interjection |
+						noun |
+						preposition |
+						pronoun |
+						verb)*>
+	<!ATTLIST madlib
+		version	CDATA	#REQUIRED
+		title	CDATA	#REQUIRED>
+
+	<!--The nine parts of speech-->
+	<!ELEMENT adjetive EMPTY>
+	<!ELEMENT adverb EMPTY>
+	<!ELEMENT article EMPTY>
+	<!ELEMENT conjunction EMPTY>
+	<!ELEMENT interjection EMPTY>
+	<!ELEMENT noun EMPTY>
+	<!ELEMENT preposition EMPTY>
+	<!ELEMENT pronoun EMPTY>
+	<!ELEMENT verb EMPTY>
+	
+	<!ATTLIST adjetive
+		id			ID		#IMPLIED
+		idref		IDREF	#IMPLIED
+		dispname	CDATA	#IMPLIED
+		type	(improper | proper)	"improper">
+	<!ATTLIST adverb
+		id			ID		#IMPLIED
+		idref		IDREF	#IMPLIED
+		dispname	CDATA	#IMPLIED>
+	<!ATTLIST article
+		id			ID		#IMPLIED
+		idref		IDREF	#IMPLIED
+		dispname	CDATA	#IMPLIED>
+	<!ATTLIST conjunction
+		id			ID		#IMPLIED
+		idref		IDREF	#IMPLIED
+		dispname	CDATA	#IMPLIED
+		type	(improper | proper)	"improper">
+	<!ATTLIST interjection
+		id			ID		#IMPLIED
+		idref		IDREF	#IMPLIED
+		dispname	CDATA	#IMPLIED>
+	<!ATTLIST noun
+		id			ID		#IMPLIED
+		idref		IDREF	#IMPLIED
+		dispname	CDATA	#IMPLIED
+		type	(improper | proper)	"improper">
+	<!ATTLIST preposition
+		id			ID		#IMPLIED
+		idref		IDREF	#IMPLIED
+		dispname	CDATA	#IMPLIED>
+	<!ATTLIST pronoun
+		id			ID		#IMPLIED
+		idref		IDREF	#IMPLIED
+		dispname	CDATA	#IMPLIED>
+	<!ATTLIST verb
+		id			ID		#IMPLIED
+		idref		IDREF	#IMPLIED
+		dispname	CDATA	#IMPLIED
+		type	(linking | action)	#IMPLIED>
+]>
+<madlib version="1.0" title="The Example Story">
+	This is an example of a very <adjetive id="n1"/> story. It is made to <verb id="n2" type="action"/>
+	the syntax used in <noun id="n3" type="proper"/>'s new (Ultimate Mad Libs) project. All possible
+	syntatical rules are used and demonstrated in this example story. The syntax is not too
+	<adjetive id="n4"/> so it is <adjetive id="n5"/> to <verb id="n6" type="action"/>. The XML format
+	is pretty self explanatory. Well, that's pretty much it for a <adjetive idref="n1"/> story.
+</madlib>
