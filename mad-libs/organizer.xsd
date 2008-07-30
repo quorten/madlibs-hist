@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<xs:schema targetNamespace="http://tempuri.org/organizer.xsd"
+                  elementFormDefault="qualified"
+                  xmlns="http://tempuri.org/organizer.xsd"
+                  xmlns:mstns="http://tempuri.org/organizer.xsd"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:documentation>
+			Organizer file - an arbitrary, sofisticated way to organize data.
+			Data elements are defined by themselves; they can be out of scope
+			if they are inside a group. Multiple groups can contain a single
+			data element through the attribute "members", but only if it is
+			in the same scope level or higher scope level.
+			Note that the capibilities of this file format are really only
+			useful if you use an editor for them, since this file format is
+			made to ease the effort of complex data organizations.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:element name="organizer">
+		<xs:complexType>
+			<xs:choice minOccurs="1" maxOccurs="unbounded">
+				<xs:element ref="group"/>
+				<xs:element ref="data"/>
+			</xs:choice>
+			<xs:attribute name="version" type="xs:string" fixed="0.5" use="required"/>
+			<xs:attribute name="purpose" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:simpleType name="StyleType">
+		<xs:list itemType="StylesUnion"/>
+	</xs:simpleType>
+	<xs:simpleType name="StylesUnion">
+		<xs:union memberTypes="VisibilityElements HideIDelmnt"/>
+	</xs:simpleType>
+	<xs:simpleType name="VisibilityElements">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="visible"/>
+			<xs:enumeration value="hidden"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="HideIDelmnt">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="hideID"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="group">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element ref="group"/>
+				<xs:element ref="data"/>
+			</xs:choice>
+			<xs:attribute name="id" type="xs:ID" use="required"/>
+			<xs:attribute name="members" type="xs:IDREF"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="data">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:ID" use="required"/>
+			<xs:attribute name="value" type="xs:string" use="required"/>
+			<xs:attribute name="style" type="StyleType"/>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>
