@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE organizer SYSTEM "organizer.dtd">
+<organizer version="0.5" purpose="Ultimate Mad Libs user configurable options">
+	<group id="Classic">
+		<data id="ShowStoryNameFirst" value="no"/>
+		<data id="OrganizeWordTypes" value="no"/>
+		<data id="ScrambleWords" value="no"/>
+		<data id="DisplayAllWords" value="no"/>
+	</group>
+	<group id="UserInterface">
+		<data id="UIType" value="GTK+"/>
+	</group>
+</organizer>
