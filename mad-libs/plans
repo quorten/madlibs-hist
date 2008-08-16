@@ -1,0 +1,253 @@
+-*-outline-*-
+* Objectives
+** Implement classic style Mad Libs
+*** Use special binary format for stories
+*** Be able to create/edit/test stories
+*** Separate original stories from created ones
+*** Play stories (of course)
+**** Be able to easilly save stories
+** Include full gramatic engine
+*** Reconize meanings of words through a dictionary
+**** Load more than one type of dictionary
+*** Be able to generate sentence structures and fill correct words
+*** Have artificial inteligence to be able to chat
+** Have configurable options
+*** Classic Mad Libs game area
+**** Configure whether words are asked in order, scrambled, or grouped by type
+*** Sentence generation stuff
+**** Setup limits
+**** Configure artificial inteligence
+** Use C++ Standard Library as much as possible
+** Product lifecycle
+*** Creation
+    Easy, described here
+*** Maintinence
+    Not going to be used for Mad Libs interface. It is suposed to be complete.
+    Hovever, the AI package is planned to be maintained.
+*** End
+    The code for the AI engine and organizer format is planned to be reused, however,
+    the rest of the code is planned to be related only to this product. However, the
+    structuring and organization model might be reused.
+*** Unplanned possibilities
+    I don't know.
+** Consistant coding standards
+*** Pointers prefixed with 'p'
+*** Reconized heap data prefixed with 'h'
+*** Stack data doesn't have a prefix
+*** Unreconized heap or stack data has no prefix, and will not be modified. /Z
+    (Pointer addresses will not be changed and data will not be deallocated)
+*** Naming conventions
+**** In cases where there would be a shared prefix, use a namespace instead
+*** Coding paradigm standards
+**** If an group of functions and variables only has one instance, don't declare /Z
+     a new class and keep variables local by using a namespace and a 'using' declaration.
+* File Outline
+** main
+   Contains code for program startup
+** classic
+   Contains the classic stuff
+** dictionary
+   Contains code for loading dictionary files, managing words, and meanings
+   Also a wrapper if a better dictionary mechanism is found
+** ai (subdirectory)
+   Contains code for artificial inteligence interpretation of words
+*** objnodes
+    root extensible thinking/understanding
+*** aistem
+    "brainstem" of artificial inteligence engine
+*** dictionary
+** sentstruct
+   Entire gramatical sentence structure rules
+** options
+   All user configurable options
+** ui
+   Wrapper for user interface methods
+   Preferably use GTK+, not console interface
+
+* Entire gramatic definition
+  Only the info that is necessary to make a sentence gramatically correct is included
+** Sentence structure
+*** Subject
+**** Articles
+**** Adjetives
+**** Noun
+**** Compoundable
+*** Predicate
+**** Verb
+***** Action
+***** Linking
+***** Compoundable
+**** Predicate Object
+***** Use with action verb
+***** Indirect object
+****** Ommitable
+****** Noun phrase
+***** Direct object
+****** Ommitable
+****** Noun phrase
+**** Predicate Adjetive
+***** Use with linking verb
+***** Adjectives
+**** Predicate Noun
+***** Use with linking verb
+***** Noun phrase
+** Sentence types
+*** Declarative
+    Makes a statement
+    Reversable
+*** Interrogative
+    Asks a question
+    Helping verb is at the beginning of the sentence
+    Can start with "why"
+*** Imperative
+    Tells a command
+    if subject is "you", then it is ommitable
+*** Exclamatory
+    Declarative ending with exclamation mark.
+*** Compound
+    Two sentences compounded
+*** Complex
+    Has more than one clause
+** Parts of speech
+*** Noun
+**** Singular
+**** Plural
+*** Prounoun
+**** Demonstrative
+*** Adjetive
+**** Proper
+**** Improper
+*** Article
+**** Singular
+***** A
+      Indefinite
+***** An
+      Use if preceding word begins with a vowel
+***** The
+      Definite
+**** Plural
+     None used
+*** Preposition
+    Objective relations
+*** Verb
+**** Linking
+**** Action
+*** Adverb
+    Modifies adjetive or verb
+*** Interjection
+** Other definitions
+*** Noun phrase
+    article adjetives noun
+
+* Psuedocode Brief Overview
+** main
+   Procedural Module
+*** Variables
+*** Functions
+**** int main()
+     InitializeOptions()
+     Enter main menu
+** options
+   Procedural Module
+*** Type Declarations
+/P  struct ID
+    {
+        STRING_TYPE name; //Text name
+ 	int	    num; //Unique number
+    }
+/A  Run-time&Compile-time Attributes:
+    Y Name & number
+    Y Only number
+*** Variables
+*** Functions
+**** STATUSCODE InitializeOptions() (ShutdownOptn?)
+     Load Options from configuration. Calls individual functions in separate source /Z
+     files to retrieve pointers and fill values, or set default values. See (name)ConfigHook().
+/P   If options file isn't present
+     	const bool noPrevConfig = true;
+	Call individual functions in separate source files to /Z
+	     retrieve their variable's config identifications, /Z
+	     their pointers, and self-initialize their values.
+     Otherwise
+	Call individual functions in separate source files to /Z
+	     retrieve their variable's config identifications /Z
+	     and their pointers.
+	Parse the config file. {
+	      For each section:
+	      	  If the ID of a statement matches on of the installed ID's
+		     Get the typeid() of the variable.
+		     Using the typeinfo, do a legitement conversion of the /Z
+		     	   data from text to binary, if necessary, and store the value.
+/A   Run-time&Compile-time Attributes:
+     Y Text/Binary storage format
+     Y Multiple text storage formats
+     Compile-time Attributes:
+     Y Disableable error semanatics
+     Preproces-time Attributes:
+     Y Separate file for preprocessor Attributes
+     Standard Attributes:
+     ? Speed optimized code
+     ? Space otimized code
+     ? Run-time customizable code
+     ? Compile-time customizeable code
+     ? Portable code
+     ? Standardized code
+     ? Standardized storage format
+**** STATUSCODE FlushOptions()
+     Writes options to file. Options are stored as a .ini file. First checks if options /Z
+     were modified before storing. If they were modified, then retrieve their ID's, if /Z
+     necessary, translate their values, and store in file.
+/A   Attributes:
+     Y Text/Binary storage format
+     Y Multiple text storage formats
+     Y Minimal data storage
+**** CustomizeOptions()
+     Bring up the customization screen
+**** (name)ConfigHook(ID varID, void* varValue, const bool noPrevConfig)
+     Form for functions located in individual source files. This function is /Z
+     necesary so that individual parts of the program can save their /Z
+     variables.
+/O   Required information to return:
+     Pointer to variable
+     Variable ID
+     Whether variable was modified
+** ui
+   Multi-Paradigm Module
+** classic
+   Procedural Module
+** sentstruct
+   Object-oriented Module
+
+* Example story format
+The (adjetive 1) Story
+This is an example of a very (adjetive 1) story. It is made to (action verb 1) the syntax used in
+(proper noun 1, name)'s new ((Ultimate Mad Libs)) project. All possible syntatical rules are used
+and demonstrated in this example story. The syntax is not too (adjetive 2) so it is (adjetive 3)
+to (action verb 2). Every time you type a single parenthese, it means descriptive syntax for a
+part of speech is in there. (interjection 1)! I never would have figured that out! Inside is a
+noun describing the part of speech, with adjetives sometimes before it, and an ID number afterword.
+If there is a comma after the ID, the (adjetive 4, synoynm for following) words are the displayed
+when asked for the type of word rather than the part of speech that the word is. Any (adjetive 4,
+synoynm for following) definitions of the part of speech with custom display words must be identical
+to the definition, just like any other (plural noun 1) of speech. If ((double parentheses)) are used,
+then just single parentheses are displayed and content is not parsed for part of speech definition.
+(((Tripple parentheses would be displayed double parentheses, and so on.))) Well, that's pretty much
+it for a (adjetive 1) story.
+
+* AI engine overview (unorganized ideas)
+All words always have a tracable relation back to nouns, nouns being unique and just "believed." They
+    can be grouped in relative, conjugate, sequential, and hierarchal ways. This mechanism is called
+    Object Nodes.
+A software component returns raw data (optionally a description) and the AI engine is in charge of
+    finding out what that data means. It does this by looking for descrete elements (Object Nodes)
+    on the term that they are seperated by a recurring or similar change in data flow, or based
+    off of pattern sequencing.
+A pattern is an entity with repeating characteristics. These characteristics can be defined and
+    separated by ANY logical manipulation. That includes fundamentally ANY possible arithmetic,
+    algebraic, etc. manipulation that can be reduced towards boolean logic. (which is basically
+    EVERYTHING)
+There will be two different variants of the planned AI engine: The learn and do; The smart engine.
+    The smart engine will be basically able to find out how things work.
+The AI engine will assume that everything is a pattern at first, trying to find out as many things
+    as possible untill it knows better.
+Patterns will be catagoryized on the basis of Object Nodes.
