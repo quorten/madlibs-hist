@@ -1,0 +1,24 @@
+//Help
+"
+Basic Info:
+You win once your score reaches 1000. It should be obvious how you score. Commands are case sensitive. Your commands:
+look     - See the contents of the room or an object.
+deposit  - Place the current item in the exchange box.
+withdraw - Take an item from the exchange box.
+enter    - Go to a box.
+exit     - Leave a box or quit the game, if not in a box.
+fetch    - Grab an item from the current box.
+use      - Use the current object on another.
+help     - Pop up this screen.
+"
+
+//EndGame
+"You walk to the door and scan your score card in the slot. After doing so, you are granted access to the outer world. Congratulations. You beat the game. However, as you walk out the door, you find out that the whole thing was nothing more than a mere prison game, and you have a prison cell yet to escape.
+"
+
+//StartGame
+"Welcome to marble collecting. The idea behind marble collecting is to fetch 'em all, especially the black ones, but beware, the black marbles are volatile. You never know what they could do to you. Are you brave (and stupid) enough to continue? (y/n): "
+
+//RoomDesc
+"It's an ordinary room, six sides and a door. There is an exchange box used to deliver and recieve items on a wall, and a table is in the middle of the room with a box full of marbles on it.
+"
