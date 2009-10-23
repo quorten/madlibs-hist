@@ -1,0 +1,14 @@
+title capitalization
+word wrap
+parse all story files
+story info caching
+ispell interface
+options pannel
+story saving
+C implementation
+story choosing
+preview story title
+edit previously entered words
+show all words at once
+play again option
+menu
