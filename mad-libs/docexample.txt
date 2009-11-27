@@ -1,0 +1,69 @@
+Now that I know the procedure for sure that I am going to follow, I should try putting it to practice.  I decided to put it to practice for the emacs source code distribution.
+
+First I have to map out the file traversal structure:
+README
+INSTALL
+nt/INSTALL
+nt/configure.bat and its OUTPUTS:
+	nt/paths.h > src/epaths.h
+	nt/config.tmp > src/config.h
+	config.settings + nmake.defs + makefile.w32-in > nt/makefile
+	    ... and other makefiles with their proper defs and ins
+nt/makefile
+	lib-src/Makefile
+	src/Makefile
+	lisp/Makefile
+	leim/Makefile
+
+Notes on nt/configure.bat:
+Check the environment
+Check the working directory
+Check command-line parameters
+Check that cp and rm are present
+Check for compiler type
+	MSVC
+	GCC
+If using GCC, then check it
+Check for external image libraries
+	libpng
+	jpeg
+	libgif
+	tiff
+	libXpm
+Write proper variables to temporary files
+	nt/config.settings	//Makefile settings
+	nt/config.tmp		//config.h stuff
+Merge those temporary files with compiled files
+	See if compiled files are already up to date
+Gererate makefiles
+Create necessary empty directories
+	Update subdirs.el if necessary
+
+Notes on nt/makefile:
+	Do initialization and checks
+		Initialize path variables
+		Check MSVC version
+		Check INCLUDE and LIB
+		Check processor architecture
+		Setup object output directory
+		Initialize command aliases
+		Initialize compiler flags
+	Wait!  That was only the defs!
+	Build emacs
+	Dump emacs
+	$(MAKE) and $(M?[AKE]FLAGS) are already defined
+	Install emacs - just copying
+	Cleaning stuff
+	Everything else is based off of calling other makefiles
+
+Notes on DUMPING:
+	Setup signals not to catch
+	Various core modules of the editor are intialized
+	loadup.el is executed
+	temacs writes itself to emacs and quits?
+
+Notes on Emacs main function:
+	Check command-line
+	Setup signals
+	Setup for profiling
+	Enter recursive edit
