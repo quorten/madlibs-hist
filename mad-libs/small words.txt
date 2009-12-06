@@ -1,0 +1,22 @@
+and
+or
+but
+nor
+in
+of
+to
+by
+for
+a
+an
+the
+is
+
+Short words which should be CAPITALIZED
+not
+be
+if
+it
+off
+has
+any
