@@ -1,0 +1,25 @@
+<?xml version ="1.0" encoding ="utf-8"?>
+<!--
+	Organizer file - an arbitrary, sofisticated way to organize data.
+	Data elements are defined by themselves; they can be out of scope
+	if they are inside a group. Multiple groups can contain a single
+	data element through the attribute "members", but only if it is
+	in the same scope level or higher scope level.
+	Note that the capibilities of this file format are really only
+	useful if you use an editor for them, since this file format is
+	made to ease the effort of complex data organizations.
+-->
+<!ELEMENT organizer (group | data)+>
+<!ATTLIST organizer
+	version CDATA #REQUIRED
+	purpose CDATA #REQUIRED>
+<!ELEMENT group (group | data)*>
+<!ATTLIST group
+	id		ID			#REQUIRED
+	members	IDREFS		#IMPLIED
+	style	(visible | hidden | hideID) "visible">
+<!ELEMENT data EMPTY>
+<!ATTLIST data
+	id		ID			#REQUIRED
+	value	CDATA		#REQUIRED
+	style	(visible | hidden | hideID) "visible">
