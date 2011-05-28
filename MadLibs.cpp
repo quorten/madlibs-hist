@@ -2,7 +2,7 @@
 //Later a configuration pannel may be added.
 
 #ifdef MSVC
-#include <io.h> //The file finding code uses WINDOWS APIs
+#include <io.h>
 #else
 #include <dirent.h> //POSIX compliant code
 #endif
@@ -10,10 +10,27 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 #include <cstdlib>
 #include <ctime>
 
+/*#include <sys/stat.h>
+#include <sys/types.h>*/
+
 using namespace std;
+
+struct CacheInfoExtra
+{
+	char* storyTitle;
+	unsigned storyAddr;
+	unsigned storySize;
+};
+
+struct CacheInfo
+{
+	unsigned numStories;
+	CacheInfoExtra* cheExtra;
+};
 
 struct MadLibsStory
 {
@@ -27,7 +44,7 @@ inline bool FindFiles(vector<string>& files);
 void AskQuestion(string qBegin, string& wordDesc);
 void FormatCustomWord(string& wordDesc);
 
-int main()
+int main(int argc, char* argv[])
 {
 	//First find all the story files in the directory
 	vector<string> files;
@@ -38,14 +55,56 @@ int main()
 		return 1;
 	}
 
-	//Pick a random story file
+	//Check if the story info cache is up to date
+	/*stat* s = new stat[];
+	stat("strche.dat", &s);
+	if (s.st_mtime)
+		printf("is directory\n");*/
+
+	//Read the cache file
+	CacheInfo* cacheInfo = new CacheInfo[files.size()];
+	FILE* fp = fopen("strche.dat", "rb");
+	for (unsigned i = 0; i < files.size(); i++)
+	{
+		fread(&cacheInfo[i].numStories, sizeof(cacheInfo[i].numStories), 1, fp);
+	}
+
+	//Prepare psudorandom number table
 	srand(time(NULL));
-	unsigned story = rand() % files.size();
+
+	//Compute that:
+	unsigned totNumStories = 0;
+	for (unsigned i = 0; i < files.size(); i++)
+		totNumStories += cacheInfo[i].numStories;
+
+	//Pick a story
+	unsigned story;
+	if (argc > 1)
+		story = atoi(argv[1]);
+	else
+		story = rand() % totNumStories;
+
+	//Reformat and store file to parse
+	unsigned prevStories = 0;
+	unsigned fileID; //Which story file?
+	for (unsigned i = 0; i < files.size(); i++)
+	{
+		if (story < cacheInfo[i].numStories + prevStories)
+		{
+			story -= prevStories;
+			fileID = i;
+			break;
+		}
+		prevStories += cacheInfo[i].numStories;
+	}
+
+	//We're done with cacheInfo
+	free(cacheInfo);
 
 	//Read the whole file into memory
 	//We have to parse the file to find out how many stories it has since it does not
 	//have a table of contents.
-	FILE* fp = fopen(files[story].c_str(), "rb");
+	fp = fopen(files[fileID].c_str(), "rb");
 	fseek(fp, 0, SEEK_END);
 	unsigned fileSize = ftell(fp);
 	fseek(fp, 0, SEEK_SET);
@@ -193,9 +252,6 @@ int main()
 		stories.pop_back();
 	}
 
-	//Pick a random story from the file
-	story = rand() % stories.size();
-
 	//Ask the words
 	FormatCustomWord(stories[story].customWords.front());
 	bool sayAnotherNext = false;
@@ -255,19 +311,20 @@ inline bool FindFiles(vector<string>& files)
 {
 #ifdef MSVC
 
-	finddata_t findData;
+	_finddata_t findData;
 	intptr_t findHandle;
 
-	findHandle = findfirst("*.mlb", &findData);
+	findHandle = _findfirst("*.mlb", &findData);
 	if (findHandle == -1)
 		return false;
 
 	files.push_back(string(findData.name));
-	while (findnext(findHandle, &findData) == 0)
+	while (_findnext(findHandle, &findData) == 0)
 	{
 		files.push_back(string(findData.name));
 	}
-	findclose(findHandle);
+	_findclose(findHandle);
+	sort(files.begin(), files.end());
 	return true;
 
 #else
@@ -285,7 +342,10 @@ inline bool FindFiles(vector<string>& files)
 	}
 	closedir(d);
 	if (files.size() > 0)
+	{
+		sort(files.begin(), files.end());
 		return true;
+	}
 	else
 		return false;
 
